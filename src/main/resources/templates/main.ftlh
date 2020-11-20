@@ -15,15 +15,15 @@
 </div>
 <div>Список сообщений:</div>
     <form method="get" action="/main">
-        <input type="text" name="filter" value="${filter}"/>
+        <input type="text" name="filter" value="${filter!""}">
         <button type="submit">Найти по тегу</button>
     </form>
     <#list messages as message>
     <div>
-        <b>${message.id}</b>
-        <span>${message.text}</span>
-        <i>${message.tag}</i>
-        <strong>${message.authorName}</strong>
+        <b>${message.id!""}</b>
+        <span>${message.text!""}</span>
+        <i>${message.tag!""}</i>
+        <strong>${message.authorName!""}</strong>
     </div>
     <#else>
     No message
