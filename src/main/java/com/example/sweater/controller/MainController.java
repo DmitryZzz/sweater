@@ -6,6 +6,7 @@ import com.example.sweater.repos.MessageRepo;
 import com.example.sweater.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,16 @@ public class MainController {
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
+        Object currUser = SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        String result;
+        if(currUser.getClass() == String.class) {
+            result = currUser.toString();
+        } else {
+            result = ((User) currUser).getUsername();
+        }
+
+        model.put("username", result);
         return "greeting";
     }
 
